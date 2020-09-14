@@ -28,6 +28,6 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Println("<<", code)
+		log.Println("<<", string(buf))
 	}
 }
