@@ -1,13 +1,22 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net"
 	"time"
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:7000")
+	host := flag.String("host", "localhost", "The Echo server's hostname")
+	port := flag.Int("port", 7000, "The Echo server's TCP port")
+
+	flag.Parse()
+
+	address := fmt.Sprintf("%s:%d", *host, *port)
+
+	conn, err := net.Dial("tcp", address)
 	if err != nil {
 		log.Fatal(err)
 	}

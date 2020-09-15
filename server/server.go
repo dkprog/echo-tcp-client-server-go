@@ -1,16 +1,22 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net"
 	"time"
 )
 
 func main() {
-	ln, err := net.Listen("tcp", ":7000")
+	port := flag.Int("port", 7000, "This Echo server's TCP port to listen to")
+	flag.Parse()
+	address := fmt.Sprintf(":%d", *port)
+	ln, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Printf("Listening for new connections on %s", address)
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
